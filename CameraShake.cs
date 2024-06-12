@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Unity.Collections;
+using Ews.Essentials.Data;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Random = UnityEngine.Random;
@@ -33,17 +33,15 @@ namespace TankGame.Client.Common
         /// <summary>
         /// active shakes.
         /// </summary>
-        private NativeList<ShakeRuntimeInfo> _shakes;
+        private flist16<ShakeRuntimeInfo> _shakes;
 
         private void Awake()
         {
-            _shakes = new(16, Allocator.Persistent);
             Instances.Add(this);
         }
 
         private void OnDestroy()
         {
-            _shakes.Dispose();
             Instances.Remove(this);
         }
 
@@ -126,9 +124,9 @@ namespace TankGame.Client.Common
         {
             transform.GetLocalPositionAndRotation(out var pos, out var rotQ);
             var rot = rotQ.eulerAngles;
-            for (int i = 0; i < _shakes.Length; i++)
+            for (int i = 0; i < _shakes.Count; i++)
             {
-                ref var s = ref _shakes.ElementAt(i);
+                ref var s = ref _shakes[i];
                 s.t += Time.deltaTime;
 
                 if (s.t < s.shakeInfo.time) // not yet started
@@ -150,7 +148,7 @@ namespace TankGame.Client.Common
             }
             transform.SetLocalPositionAndRotation(pos, Quaternion.Euler(rot));
 
-            if (_shakes.Length == 0)
+            if (_shakes.Count == 0)
             {
                 // don't receive LateUpdate anymore
                 enabled = false;
@@ -211,7 +209,7 @@ namespace TankGame.Client.Common
             {
                 base.OnInspectorGUI();
                 CameraShake camShake = (CameraShake)target;
-                GUILayout.Label($"shakes count: {(camShake._shakes.IsCreated ? camShake._shakes.Length : 0)}");
+                GUILayout.Label($"shakes count: {camShake._shakes.Count}");
                 if (Application.isPlaying)
                 {
                     if (GUILayout.Button("Default Shake"))

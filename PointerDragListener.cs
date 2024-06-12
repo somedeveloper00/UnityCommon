@@ -15,7 +15,7 @@ namespace TankGame.Client.Common
     {
         public float multiClickTimeThreshold = 0.5f;
 
-        public delegate void DraggedDelegate(in NativeList<PointerDragData> pointers);
+        public delegate void DraggedDelegate(in flist8<PointerDragData> pointers);
 
         /// <summary>
         /// a pointer started dragging
@@ -32,23 +32,21 @@ namespace TankGame.Client.Common
         /// </summary> 
         public event DraggedDelegate DragFinished;
 
-        private NativeList<PointerDragData> _dragData;
+        private flist8<PointerDragData> _dragData;
 
         protected override void OnEnable()
         {
             base.OnEnable();
-            _dragData = new(4, Allocator.Persistent);
         }
 
         protected override void OnDisable()
         {
             base.OnDisable();
-            _dragData.Dispose();
         }
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if (_dragData.Length == _dragData.Capacity)
+            if (_dragData.Count == _dragData.Capacity)
             {
                 return;
             }
@@ -65,9 +63,9 @@ namespace TankGame.Client.Common
         public void OnDrag(PointerEventData eventData)
         {
             var id = eventData.pointerId;
-            for (int i = 0; i < _dragData.Length; i++)
+            for (int i = 0; i < _dragData.Count; i++)
             {
-                ref var element = ref _dragData.ElementAt(i);
+                ref var element = ref _dragData[i];
                 if (element.id == id)
                 {
                     element.current = eventData.position;
@@ -82,9 +80,9 @@ namespace TankGame.Client.Common
         public void OnEndDrag(PointerEventData eventData)
         {
             var id = eventData.pointerId;
-            for (int i = 0; i < _dragData.Length; i++)
+            for (int i = 0; i < _dragData.Count; i++)
             {
-                ref var element = ref _dragData.ElementAt(i);
+                ref var element = ref _dragData[i];
                 if (element.id == id)
                 {
                     _dragData.RemoveAt(i);
