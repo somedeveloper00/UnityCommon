@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TankGame.Client.Common
+namespace UnityCommon
 {
     /// <summary>
     /// A common slider for showing skills in a linear line that gets filled

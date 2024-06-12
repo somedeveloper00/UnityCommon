@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TankGame.Client.Common
+namespace UnityCommon
 {
     /// <summary>
     /// Spawns a prefab

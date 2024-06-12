@@ -1,5 +1,5 @@
 using System;
-using TankGame.Client.Common;
+using UnityCommon;
 using UnityEngine;
 
 namespace TankGame.Clint.Common

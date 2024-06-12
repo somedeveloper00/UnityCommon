@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
-namespace TankGame.Client.Common
+namespace UnityCommon
 {
     /// <summary>
     /// Changes the <see cref="TMP_Text"/> in intrvals.

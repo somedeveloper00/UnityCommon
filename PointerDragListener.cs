@@ -1,10 +1,9 @@
 using Ews.Essentials.Data;
-using Unity.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace TankGame.Client.Common
+namespace UnityCommon
 {
     /// <summary>
     /// Listens for pointer drag on this UI element

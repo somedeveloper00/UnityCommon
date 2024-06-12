@@ -2,7 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 
-namespace TankGame.Client.Common
+namespace UnityCommon
 {
     /// <summary>
     /// Changes the text of a <see cref="TMP_Text"/>. Useful for use in animations and timelines.

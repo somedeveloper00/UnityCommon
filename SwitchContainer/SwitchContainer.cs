@@ -3,7 +3,7 @@ using AnimFlex.Sequencer;
 using UnityEngine;
 using UnityEngine.Playables;
 
-namespace TankGame.Client.Common
+namespace UnityCommon
 {
     /// <summary>
     /// A container that can be switched ON and OFF, like how a game object can be activated and deactivated. This container 

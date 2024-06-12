@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using Random = UnityEngine.Random;
 
-namespace TankGame.Client.Common
+namespace UnityCommon
 {
     /// <summary>
     /// A minimal and performant camera shaker. It manipulates the camera's transform in <see cref="LateUpdate"/> phase 

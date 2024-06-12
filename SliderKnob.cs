@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace TankGame.Client.Common
+namespace UnityCommon
 {
     /// <summary>
     /// Knob for a slider. Standalone, this can work as a slider system.

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TankGame.Client.Common
+namespace UnityCommon
 {
     /// <summary>
     /// Copies a source camera into a camera on this game object

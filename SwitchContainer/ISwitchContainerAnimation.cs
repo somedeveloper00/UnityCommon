@@ -1,6 +1,6 @@
 using System;
 
-namespace TankGame.Client.Common
+namespace UnityCommon
 {
     /// <summary>
     /// An interface for playing animations for <see cref="SwitchContainer"/>
