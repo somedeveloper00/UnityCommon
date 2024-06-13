@@ -2,6 +2,7 @@ using System;
 using AnimFlex.Sequencer;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Serialization;
 
 namespace UnityCommon
 {
@@ -26,12 +27,14 @@ namespace UnityCommon
         [SerializeField] private PlayableDirector outTimeline;
 
         [Tooltip("If not empty, it'll be played when the state of this container switches from deactivated to activated")]
+        [FormerlySerializedAs("inSequencer")]
         [SerializeField] private SequenceAnim inSequence;
 
         [Tooltip("If not empty, it'll be played when the state of this container switches from activated to deactivated")]
+        [FormerlySerializedAs("outSequencer")]
         [SerializeField] private SequenceAnim outSequence;
-        private ISwitchContainerAnimation _inAnim, _outAnim;
 
+        private ISwitchContainerAnimation _inAnim, _outAnim;
         private bool _wasActivated;
 
         /// <summary>
@@ -45,20 +48,12 @@ namespace UnityCommon
                 if (_wasActivated == value)
                 {
                     // dont proceed if animation is on-going
-                    if (!_wasActivated && _outAnim?.IsPlaying() == true)
+                    if ((_wasActivated || (_outAnim?.IsPlaying()) != true) && (!_wasActivated || (_inAnim?.IsPlaying()) != true))
                     {
-                        return;
+                        EnforceActivationResultState(value);
                     }
-                    if (_wasActivated && _inAnim?.IsPlaying() == true)
-                    {
-                        return;
-                    }
-
-                    EnforceActivationResultState(value);
-                    return;
                 }
-
-                if (value)
+                else if (value)
                 {
                     if (_outAnim?.IsPlaying() == true)
                     {
