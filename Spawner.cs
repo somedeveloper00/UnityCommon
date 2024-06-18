@@ -12,9 +12,14 @@ namespace UnityCommon
         public bool useSelfParent;
 
         /// <summary>
+        /// Instantiate the prefab. Compatible with persistent calls in Unity Event.
+        /// </summary>
+        public void Spawn() => SpawnAndReceive();
+
+        /// <summary>
         /// Instantiate the prefab
         /// </summary>
-        public GameObject Spawn() => Instantiate();
+        public GameObject SpawnAndReceive() => Instantiate();
 
         /// <summary>
         /// Instantiate the prefab and multiply its <see cref="Transform.localScale"/> by <paramref name="scaleMultiplier"/>

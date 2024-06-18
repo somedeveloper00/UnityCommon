@@ -1,4 +1,3 @@
-using System;
 using AnimFlex.Sequencer;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -10,7 +9,7 @@ namespace UnityCommon
     /// A container that can be switched ON and OFF, like how a game object can be activated and deactivated. This container 
     /// helps with efficiently handling an animation for turning objects ON and OFF.
     /// </summary>
-    public sealed class SwitchContainer : MonoBehaviour
+    public sealed partial class SwitchContainer : MonoBehaviour
     {
         public bool SkipAnimations;
 
@@ -60,9 +59,9 @@ namespace UnityCommon
                         _outAnim.Stop();
                     }
                     EnforceActivationResultState(true);
-                    if (!SkipAnimations)
+                    if (!SkipAnimations && _inAnim is not null)
                     {
-                        _inAnim?.Play();
+                        _inAnim.Play();
                     }
                 }
                 else
@@ -71,9 +70,13 @@ namespace UnityCommon
                     {
                         _inAnim.Stop();
                     }
-                    if (!SkipAnimations)
+                    if (!SkipAnimations && _outAnim is not null)
                     {
-                        _outAnim?.Play();
+                        _outAnim.Play();
+                    }
+                    else
+                    {
+                        EnforceActivationResultState(false);
                     }
                 }
 
@@ -119,45 +122,6 @@ namespace UnityCommon
         {
             targetCanvas = GetComponent<Canvas>();
             targetGameObject = gameObject;
-        }
-
-
-        public readonly struct SwitchContainerAnimation_Timeline : ISwitchContainerAnimation
-        {
-            public readonly PlayableDirector playableDirector;
-
-            public SwitchContainerAnimation_Timeline(PlayableDirector playableDirector) => this.playableDirector = playableDirector;
-            public bool IsPlaying() => playableDirector.state == PlayState.Playing;
-            public void Play() => playableDirector.Play();
-            public void Stop() => playableDirector.Stop();
-
-            public void AddCompletedCallback(Action callback)
-            {
-                var director = playableDirector;
-                director.paused += _ =>
-                {
-                    if (director.time == director.duration)
-                    {
-                        callback();
-                    }
-                };
-            }
-        }
-
-        public readonly struct SwitchContainerAnimation_SequenceAnim : ISwitchContainerAnimation
-        {
-            public readonly SequenceAnim sequenceAnim;
-
-            public SwitchContainerAnimation_SequenceAnim(SequenceAnim sequenceAnim) => this.sequenceAnim = sequenceAnim;
-            public bool IsPlaying() => sequenceAnim.IsPlaying();
-            public void Play() => sequenceAnim.PlaySequence();
-            public void Stop() => sequenceAnim.StopSequence();
-
-            public void AddCompletedCallback(Action callback)
-            {
-                var seq = sequenceAnim;
-                seq.sequence.onComplete += callback.Invoke;
-            }
         }
     }
 }
