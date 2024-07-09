@@ -1,10 +1,10 @@
 {
     "name": "UnityCommon",
-    "rootNamespace": "",
+    "rootNamespace": "UnityCommon",
     "references": [
-        "GUID:1f5c56dc4d564bfb9dbc4f2822296c3b",
-        "GUID:6055be8ebefd69e48b49212b09b47b2f",
-        "GUID:f593fd4d5fc24cfa986d95fafc9105f2"
+        "AnimFlex",
+        "Unity.TextMeshPro",
+        "Ews.Essentials"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

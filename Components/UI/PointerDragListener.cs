@@ -9,11 +9,8 @@ namespace UnityCommon
     /// Listens for pointer drag on this UI element
     /// </summary>
     [DefaultExecutionOrder(-1)]
-    [RequireComponent(typeof(CanvasRenderer), typeof(RectTransform))]
     public sealed class PointerDragListener : Graphic, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        public float multiClickTimeThreshold = 0.5f;
-
         public delegate void DraggedDelegate(in flist8<PointerDragData> pointers);
 
         /// <summary>

@@ -1,8 +1,7 @@
 using System;
-using UnityCommon;
 using UnityEngine;
 
-namespace TankGame.Clint.Common
+namespace UnityCommon
 {
     /// <summary>
     /// Causes <see cref="CameraShake"/> to shake. Needs at least one active <see cref="CameraShake"/> component in the game to work.
