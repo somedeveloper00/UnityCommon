@@ -214,9 +214,9 @@ namespace UnityCommon
         {
             foreach (var slots in _slots)
             {
-                foreach (var item in slots)
+                for (int i = 0; i < slots?.Count; i++)
                 {
-                    yield return item.value;
+                    yield return slots[i].value;
                 }
             }
         }
@@ -457,6 +457,30 @@ namespace UnityCommon
         public ReferenceSerializableHashSet(int capacity, IEqualityComparer<T> comparer) : base(capacity, comparer) { }
         public ReferenceSerializableHashSet(IEnumerable<T> other) : base(other) { }
         public ReferenceSerializableHashSet(IEnumerable<T> other, IEqualityComparer<T> comparer) : base(other, comparer) { }
+
+        void ISerializationCallbackReceiver.OnBeforeSerialize() => values = this.ToArray();
+
+        void ISerializationCallbackReceiver.OnAfterDeserialize()
+        {
+            Clear();
+            foreach (var item in values)
+            {
+                if (!Add(item))
+                {
+                    Add(default); // Unity's Inspector duplicates items
+                }
+            }
+        }
+    }
+
+    [Serializable]
+    public sealed class TypedReferenceSerializableHashSet<T> : SerializableHashSetBase<T>, ISerializationCallbackReceiver
+    {
+        [SerializeReference] private T[] values;
+
+        public TypedReferenceSerializableHashSet() : base(ByTypeComparer<T>.Instance) { }
+        public TypedReferenceSerializableHashSet(int capacity) : base(capacity, ByTypeComparer<T>.Instance) { }
+        public TypedReferenceSerializableHashSet(IEnumerable<T> other) : base(other, ByTypeComparer<T>.Instance) { }
 
         void ISerializationCallbackReceiver.OnBeforeSerialize() => values = this.ToArray();
 
