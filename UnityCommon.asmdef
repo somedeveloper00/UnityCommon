@@ -4,7 +4,10 @@
     "references": [
         "AnimFlex",
         "Unity.TextMeshPro",
-        "Ews.Essentials"
+        "Ews.Essentials",
+        "Unity.Mathematics",
+        "Unity.Burst",
+        "Unity.Collections"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
